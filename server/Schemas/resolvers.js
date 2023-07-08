@@ -1,9 +1,11 @@
-const { bookSchema,User } = require('../models');
+const { Book, User } = require('../models');
+const fetch = require('node-fetch');
+
 
 const resolvers = {
   Query: {
-    classes: async () => {
-      return await Class.find({});
+    books: async (query) => {
+      return await fetch(`https://www.googleapis.com/books/v1/volumes?q=${query}`);
     }
   }
 };
