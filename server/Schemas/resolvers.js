@@ -1,13 +1,22 @@
 const { Book, User } = require('../models');
-const fetch = require('node-fetch');
+
 
 
 const resolvers = {
-  Query: {
-    books: async (query) => {
-      return await fetch(`https://www.googleapis.com/books/v1/volumes?q=${query}`);
+    Mutation: {
+    saveBook: async (parent, { userId, book }) => {
+        return User.findOneAndUpdate(
+          { _id: userId },
+          {
+            $addToSet: { savedBooks: book },
+          },
+          {
+            new: true,
+            runValidators: true,
+          }
+        );
+      },
     }
-  }
 };
 
 module.exports = resolvers;

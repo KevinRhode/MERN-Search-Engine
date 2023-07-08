@@ -21,5 +21,17 @@ type Query {
     token: ID!
     user: User
   }
+  type Mutation {
+    addUser(username: String!, email: String!, password: String!): Auth
+    loginUser(email: String!, password: String!): Auth
+    saveBook(input: SavingBook): User
+  }
+  input SavingBook {
+    bookId:String
+    authors:[String]
+    description:String
+    image:String
+    link:String
+  }
 `;
 module.exports = typeDefs;
