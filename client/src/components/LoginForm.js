@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom';
 import { useMutation } from '@apollo/client';
 import { LOGIN_USER } from '../utils/mutations';
 
-import { loginUser } from '../utils/API';
+// import { loginUser } from '../utils/API';
 import Auth from '../utils/auth';
 
 const LoginForm = () => {
@@ -29,32 +29,16 @@ const LoginForm = () => {
       event.stopPropagation();
     }
     try {
-      const { data } = await login({
-        variables: { ...userFormData },
-      });
+      const { data } = await login({ variables:{...userFormData}});
 
       Auth.login(data.login.token);
     } catch (e) {
       console.error(e);
       setShowAlert(true);
     }
-    // try {
-    //   const response = await loginUser(userFormData);
-
-    //   if (!response.ok) {
-    //     throw new Error('something went wrong!');
-    //   }
-
-    //   const { token, user } = await response.json();
-    //   console.log(user);
-    //   Auth.login(token);
-    // } catch (err) {
-    //   console.error(err);
-    //   setShowAlert(true);
-    // }
+  
 
     setUserFormData({
-      username: '',
       email: '',
       password: '',
     });
