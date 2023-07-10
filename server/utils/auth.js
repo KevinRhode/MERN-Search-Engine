@@ -6,6 +6,7 @@ const expiration = '2h';
 
 module.exports = {
   authMiddleware: function ({ req }) {
+    
     // allows token to be sent via req.body, req.query, or headers
     let token = req.body.token || req.query.token || req.headers.authorization;
 
@@ -27,6 +28,7 @@ module.exports = {
     }
 
     // return the request object so it can be passed to the resolver as `context`
+    // console.log("auth going to return req");
     return req;
   },
   signToken: function ({ email, username, _id }) {
