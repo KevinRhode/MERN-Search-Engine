@@ -15,18 +15,23 @@ import { removeBookId } from '../utils/localStorage';
 
 const SavedBooks = () => {
   const [userData, setUserData] = useState({});
-  const {loading,dataErr, data} = useQuery(QUERY_ME,{variables:{},context:{headers:{Authorization: `Bearer ${Auth.getToken}`}}});
+  const token = Auth.loggedIn() ? Auth.getToken() : null;
+  const {loading,dataErr, data} = useQuery(QUERY_ME,{variables:"",context:{headers:{Authorization: `Bearer ${token}`}}});
   
+  // if(data){
+  //   setUserData(data.me);
+  // }
   
   // console.log(user);
   // use this to determine if `useEffect()` hook needs to run again
-  const userDataLength = Object.keys(userData).length;
-  useEffect(()=>{
-    if (data) {
-      setUserData(data.me);
-    }
+  // const userDataLength = Object.keys(userData).length;
+
+  // useEffect(()=>{
+  //   if (data) {
+  //     setUserData(data.me);
+  //   }
   
-  },[data]);
+  // },[data]);
   // create function that accepts the book's mongo _id value as param and deletes the book from the database
   const handleDeleteBook = async (bookId) => {
     const token = Auth.loggedIn() ? Auth.getToken() : null;
@@ -52,15 +57,10 @@ const SavedBooks = () => {
   };
 
   // if data isn't here yet, say so
-  if (!loading) {
+  if (loading) {
     return <h2>LOADING...</h2>;
   }
-  return(
-    <>
-    <div>Notes
-      </div></>
-  )
-
+  console.log(data.me);
   return (
     <>
       <div fluid className='text-light bg-dark p-5'>
@@ -70,12 +70,12 @@ const SavedBooks = () => {
       </div>
       <Container>
         <h2 className='pt-5'>
-          {userData.savedBooks.length
-            ? `Viewing ${data?.data.savedBooks.length} saved ${userData.savedBooks.length === 1 ? 'book' : 'books'}:`
+          {data.me.savedBooks.length
+            ? `Viewing ${data.me.savedBooks.length} saved ${data.me.savedBooks.length === 1 ? 'book' : 'books'}:`
             : 'You have no saved books!'}
         </h2>
         <Row>
-          {userData.savedBooks.map((book) => {
+          {data.me.savedBooks.map((book) => {
             return (
               <Col md="4">
                 <Card key={book.bookId} border='dark'>
