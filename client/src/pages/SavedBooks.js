@@ -10,11 +10,13 @@ import {
 import { getMe, deleteBook } from '../utils/API';
 import { useQuery, useMutation } from '@apollo/client';
 import { QUERY_ME } from '../utils/queries'
+import { REMOVE_BOOK } from '../utils/mutations';
 import Auth from '../utils/auth';
 import { removeBookId } from '../utils/localStorage';
 
 const SavedBooks = () => {
   const [userData, setUserData] = useState({});
+  const [removeBook,{error, removedData}] = useMutation(REMOVE_BOOK);
   const token = Auth.loggedIn() ? Auth.getToken() : null;
   const {loading,dataErr, data} = useQuery(QUERY_ME,{variables:"",context:{headers:{Authorization: `Bearer ${token}`}}});
   
@@ -34,26 +36,25 @@ const SavedBooks = () => {
   // },[data]);
   // create function that accepts the book's mongo _id value as param and deletes the book from the database
   const handleDeleteBook = async (bookId) => {
-    const token = Auth.loggedIn() ? Auth.getToken() : null;
+    // const token = Auth.loggedIn() ? Auth.getToken() : null;
 
     if (!token) {
       return false;
     }
 
     try {
-      const response = await deleteBook(bookId, token);
-
-      if (!response.ok) {
-        throw new Error('something went wrong!');
-      }
-
-      const updatedUser = await response.json();
+      await removeBook({variables:{bookId},context:{headers:{Authorization: `Bearer ${token}`}}})
+      const updatedUser = {
+        ...userData,
+        savedBooks:userData.savedBooks.filter((book)=> book.bookId !== bookId),
+        bookCount: userData.savedBooks.length > 0 ? userData.savedBooks.length -1:0
+      };
       setUserData(updatedUser);
-      // upon success, remove book's id from localStorage
-      removeBookId(bookId);
-    } catch (err) {
-      console.error(err);
+    } catch (error) {
+      console.error(error);
     }
+
+    
   };
 
   // if data isn't here yet, say so
