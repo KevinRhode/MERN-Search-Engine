@@ -1,7 +1,7 @@
 {
   "name": "googlebooks-app",
   "version": "1.0.0",
-  "description": "",
+  "description": "Test",
   "main": "server/server.js",
   "scripts": {
     "start": "node server/server.js",
@@ -13,10 +13,10 @@
   "author": "",
   "license": "ISC",
   "devDependencies": {
-    "concurrently": "^5.1.0"
+    "concurrently": "^5.1.0",
+    "eslint": "^8.44.0"
   },
   "engines": {
     "node": "16.x"
   }
-  
 }
