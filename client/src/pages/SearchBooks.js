@@ -81,7 +81,10 @@ const SearchBooks = () => {
         context:{
           headers:{Authorization: `Bearer ${token}`}
         }});
-
+      if (data) {
+            // if book successfully saves to user's account, save book id to state
+      setSavedBookIds([...savedBookIds, bookToSave.bookId]);
+      }
       // Auth.login(data.login.token);
     } catch (e) {
       console.error(e);

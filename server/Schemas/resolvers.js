@@ -7,7 +7,7 @@ const resolvers = {
     me: async (parent, args, context) => {
       
       if (context.user) {   
-        // console.log("resolver hit")    
+         
         return await User.findOne({ _id: context.user._id });
       }
       throw new AuthenticationError("You need to be logged in!");
@@ -51,19 +51,18 @@ const resolvers = {
       throw new AuthenticationError("You need to be logged in!");
     },
     removeBook: async (parent, { bookId }, context) => {
-      if (context.user) {
-        const savedBook = await Book.findOneAndDelete({
-          bookId: bookId,          
-        });
-
-        await User.findOneAndUpdate(
-          { _id: context.user._id },
-          { $pull: { savedBooks: savedBook.bookId } }
-        );
-
-        return savedBook;
-      }
-      throw new AuthenticationError("You need to be logged in!");
+      // if (context.user) {
+        try {
+          return await User.findOneAndUpdate(
+            { _id: context.user._id },
+            { $pull: { savedBooks: bookId } }
+          );
+        } catch (error) {
+          return error;
+        }
+       
+      // }
+      // throw new AuthenticationError("You need to be logged in!");
     },
   },
 };
