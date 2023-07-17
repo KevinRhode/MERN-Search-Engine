@@ -1,4 +1,8 @@
 # MERN-Search-Engine
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://choosealicense.com/licenses/mit/)
+## Description
+
+
 
 ## User Story
 ```md
@@ -39,3 +43,32 @@ THEN that book is deleted from my saved books list
 WHEN I click on the Logout button
 THEN I am logged out of the site and presented with a menu with the options Search for Books and Login/Signup and an input field to search for books and a submit button  
 ```
+## Installation
+- Node.js v16 is required for MERN-Search-Engine  
+
+Clone the Repo into a desired Location  
+```md
+git clone git@github.com:KevinRhode/MERN-Search-Engine.git
+```
+Install required packages
+```md
+npm install
+```
+Start the App
+```md
+npm run start
+```
+
+## Preview
+
+![search](./client/src/images/mern-search-engine-dab9f63f201f.herokuapp.com_search.png)
+![saved](./client/src/images/mern-search-engine-dab9f63f201f.herokuapp.com_saved.png)
+
+
+
+## Deployed App
+
+[MERN-Search-Engine]()
+
+## License
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://choosealicense.com/licenses/mit/)
