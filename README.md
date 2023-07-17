@@ -1,7 +1,7 @@
 # MERN-Search-Engine
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://choosealicense.com/licenses/mit/)
 ## Description
-
+The search engine is a web app that was built to showcase GraphQL. Using Google Books API, GraphQL Api has been implemented Apollo Server. Allowing us to use the MERN Stack with a CI/CD to Heroku.
 
 
 ## User Story
