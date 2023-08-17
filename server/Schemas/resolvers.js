@@ -12,9 +12,9 @@ const resolvers = {
       }
       throw new AuthenticationError("You need to be logged in!");
     },
-    getFamilyUser: async (parent, {familyUserId})=>{
-      return await User.findOne({ _id: familyUserId });
-    }
+    // getFamilyUser: async (parent, {familyUserId})=>{
+    //   return await User.findOne({ _id: familyUserId });
+    // }
 
 
   },
